@@ -1,0 +1,52 @@
+body {
+  font-family: "Helvetica", "Yu Gothic", sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  background: #f9fafc;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  background: #004c97;
+  color: white;
+  padding: 40px 20px;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+h2 {
+  border-bottom: 3px solid #004c97;
+  padding-bottom: 5px;
+}
+
+.work-item {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.work-item img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-size: 14px;
+}
