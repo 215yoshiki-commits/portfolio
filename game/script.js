@@ -1,5 +1,5 @@
 // PIXI.JSアプリケーションを呼び出す (この数字はゲーム内の画面サイズ)
-const app = new PIXI.Application({ width: 800, height: 1200 });
+const app = new PIXI.Application({ width: 400, height: 600 });
 
 // index.htmlのbodyにapp.viewを追加する (app.viewはcanvasのdom要素)
 document.body.appendChild(app.view);
