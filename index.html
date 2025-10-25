@@ -1,64 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ポートフォリオ | 横田 圭喜</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ポートフォリオ | 横田 圭喜</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>横田 圭喜</h1>
-    <p>東京科学大学 修士1年 / ロボティクス研究</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#works">Works</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <header>
+    <h1>横田 圭喜</h1>
+    <p>東京科学大学 修士1年 / ロボティクス研究</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#works">Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <section id="about">
-    <h2>About</h2>
-    <p>ロボットを用いた長尺材の搬送支援に関する研究を行っています。</p>
-  </section>
+  <section id="about">
+    <h2>About</h2>
+    <p>
+      ロボットを用いた長尺材の搬送支援に関する研究を行っています。
+      特に、200m級の金属屋根材を対象とし、複数台のロボットが協調して安全かつ効率的に搬送するシステムの開発に取り組んでいます。
+    </p>
+  </section>
 
-  <section id="works">
-    <h2>Works</h2>
-    <div class="work-item">
-      <img src="images/sample1.jpg" alt="研究写真" />
-      <h3>屋根折板搬送補助ロボット</h3>
-      <p>200m級の金属屋根材を複数台ロボットで協調搬送するシステムを開発。</p>
-    </div>
+  <section id="works">
+    <h2>Works</h2>
     
-    <!-- ★★★ ここからが追加部分 ★★★ -->
-    <div class="work-item">
-      <!-- ゲームのフォルダ内にあるindex.htmlにリンクします -->
-      <!-- target="_blank" をつけると新しいタブでゲームが開きます -->
-      <a href="game/index.html" target="_blank">
-        <!-- ゲームのスクリーンショット画像などを指定してください -->
+    <div class="works-container">
+      <div class="work-item">
+        <img src="images/sample1.jpg" alt="研究写真" />
+        <h3>屋根折板搬送補助ロボット</h3>
+        <p>200m級の金属屋根材を複数台ロボットで協調搬送するシステムを開発。シミュレーションと実機検証を行っています。</p>
+        </div>
+
+      <div class="work-item">
         <img src="images/game_thumbnail.jpg" alt="ボールゲームの画像" />
         <h3>ボール落とさないで！ゲーム</h3>
-      </a>
-      <p>PixiJSを使って作成したブラウザで遊べるシンプルなゲームです。</p>
+        <p>PixiJSを使って作成したブラウザで遊べるシンプルなゲームです。キーボードでバーを操作します。</p>
+        <a href="game/index.html" target="_blank" class="btn-link">ゲームで遊ぶ</a>
+      </div>
     </div>
-    <!-- ★★★ ここまでが追加部分 ★★★ -->
+    </section>
 
-  </section>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>ご興味を持っていただけましたら、お気軽にご連絡ください。</p>
+    
+    <div class="contact-links">
+      <a href="mailto:xxx@example.com" class="btn-link">📧 E-Mail</a>
+      <a href="https://github.com/yourname" target="_blank" class="btn-link github">
+        GitHub
+      </a>
+    </div>
+  </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>📧 <a href="mailto:xxx@example.com">xxx@example.com</a></p>
-    <p><a href="https://github.com/yourname" target="_blank">GitHub</a></p>
-  </section>
-
-  <footer>
-    <p>2025 Yokota Yoshiki</p>
-  </footer>
+  <footer>
+    <p>&copy; 2025 Yokota Yoshiki</p>
+  </footer>
 </body>
 </html>
-
-    
-
-
-
-
