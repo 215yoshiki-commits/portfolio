@@ -1,9 +1,16 @@
+/* スムーズスクロールを有効に */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: "Helvetica", "Yu Gothic", sans-serif;
+  font-family: "Helvetica", "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo",
+    sans-serif;
   line-height: 1.6;
   margin: 0;
   background: #f9fafc;
   color: #333;
+  box-sizing: border-box; /* レイアウト崩れを防ぐおまじない */
 }
 
 header {
@@ -13,40 +20,155 @@ header {
   padding: 40px 20px;
 }
 
+header h1 {
+  margin: 0;
+}
+
+header p {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* リンク間の隙間 */
+  margin-top: 20px;
+}
+
 nav a {
   color: white;
-  margin: 0 15px;
+  margin: 0;
   text-decoration: none;
   font-weight: bold;
+  padding: 8px 15px; /* クリック領域を拡大 */
+  border-radius: 5px;
+  transition: background-color 0.3s; /* ホバー時のアニメーション */
+}
+
+/* ナビゲーションのホバーエフェクト */
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 section {
-  max-width: 800px;
+  max-width: 900px; /* 少し幅を広げました */
   margin: 40px auto;
   padding: 0 20px;
 }
 
 h2 {
+  text-align: center; /* 中央揃えに変更 */
   border-bottom: 3px solid #004c97;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 30px; /* セクション内の余白を調整 */
+}
+
+/* ★★★ Worksのレイアウト（ここから） ★★★ */
+.works-container {
+  display: grid;
+  /* 画面幅に応じて、300pxを最小幅として自動で列数を調整 */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px; /* カード間の隙間 */
 }
 
 .work-item {
   background: white;
   border-radius: 12px;
-  padding: 15px;
-  margin-top: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-top: 0; /* grid-gapで管理するため不要に */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s; /* ホバーアニメーション */
+  
+  /* カードの高さを揃え、ボタンを一番下に配置するためのflex設定 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* カードのホバーエフェクト */
+.work-item:hover {
+  transform: translateY(-5px); /* 少し浮き上がる */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .work-item img {
   width: 100%;
   border-radius: 12px;
+  border: 1px solid #eee; /* 画像に枠線を追加 */
 }
+
+.work-item h3 {
+  color: #004c97;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.work-item p {
+  flex-grow: 1; /* この要素が伸びて、後続のボタンを一番下に押しやる */
+  color: #555;
+  font-size: 0.95em;
+}
+/* ★★★ Worksのレイアウト（ここまで） ★★★ */
+
+
+/* ★★★ 汎用ボタン（ここから） ★★★ */
+.btn-link {
+  display: block; /* 親の幅いっぱいに広がる */
+  background: #004c97;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 15px; /* 上の<p>タグとの隙間 */
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.btn-link:hover {
+  background-color: #003366; /* ホバー時に少し濃い色に */
+}
+
+/* リンクではないが、ボタン風にしたい場合（例：詳細準備中など） */
+.btn-link.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+/* ★★★ 汎用ボタン（ここまで） ★★★ */
+
+
+/* ★★★ Contactセクション（ここから） ★★★ */
+#contact p {
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* スマホで縦並びにする */
+  gap: 20px; /* ボタン間の隙間 */
+  margin-top: 20px;
+}
+
+.contact-links .btn-link {
+  min-width: 160px; /* ボタンの最小幅を指定 */
+}
+
+/* GitHubボタンの色を個別に指定 */
+.btn-link.github {
+  background-color: #333;
+}
+.btn-link.github:hover {
+  background-color: #111;
+}
+/* ★★★ Contactセクション（ここまで） ★★★ */
+
 
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 30px 20px; /* 上下の余白を調整 */
   color: #777;
   font-size: 14px;
+  margin-top: 50px;
+  border-top: 1px solid #eee;
 }
