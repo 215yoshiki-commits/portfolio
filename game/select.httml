@@ -48,9 +48,7 @@
   <h1>🎮 ゲームを選択してください</h1>
 
   <div class="game-list">
-    <a href="puzzle.html">🧩 パズルゲーム</a>
-    <a href="shooting.html">🚀 シューティングゲーム</a>
-    <a href="racing.html">🏎️ レースゲーム</a>
+    <a href="index.html">🧩 ボール落とし</a>
   </div>
 
   <a href="../index.html" class="back">← ポートフォリオに戻る</a>
