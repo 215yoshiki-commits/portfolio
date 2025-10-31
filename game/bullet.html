@@ -23,26 +23,23 @@
   <p>矢印キーで移動できます</p>
 
   <script>
-    // --- Pixiアプリの初期化 (v8の記法) ---
+ 
     (async () => {
-      // 1. アプリケーションインスタンスを作成
+
       const app = new PIXI.Application();
 
-      // 2. v8では init() メソッドで初期化します (awaitが必須)
+
       await app.init({
         width: 480,
         height: 640,
         backgroundColor: 0x000000
       });
 
-      // 3. v8では app.view ではなく app.canvas に名前が変わりました
       document.body.appendChild(app.canvas);
 
-      // 4. キー入力を受け付けるためにフォーカス可能にする (app.canvasを使用)
       app.canvas.tabIndex = 0;
       app.canvas.focus();
 
-      // --- プレイヤー（自機） ---
       const player = new PIXI.Graphics();
       player.beginFill(0x00ffcc);
       player.drawCircle(0, 0, 8);
@@ -51,7 +48,7 @@
       player.y = 560;
       app.stage.addChild(player);
 
-      // --- 敵キャラ ---
+
       const enemy = new PIXI.Graphics();
       enemy.beginFill(0xff4444);
       enemy.drawCircle(0, 0, 15);
@@ -60,42 +57,42 @@
       enemy.y = 120;
       app.stage.addChild(enemy);
 
-      // --- テキスト ---
+
       const scoreText = new PIXI.Text("Score: 0", { fill: "white", fontSize: 20 });
       scoreText.x = 10;
       scoreText.y = 10;
       app.stage.addChild(scoreText);
 
-      // --- 各種変数 ---
+
       const keys = {};
       const bullets = [];
       let tick = 0;
       let score = 0;
       let isGameOver = false;
 
-      // 5. 入力イベント（app.canvasに付ける） ---
+
       app.canvas.addEventListener("keydown", (e) => keys[e.key] = true);
       app.canvas.addEventListener("keyup", (e) => keys[e.key] = false);
 
-      // --- 当たり判定 ---
+
       function hit(a, b, dist) {
         const dx = a.x - b.x;
         const dy = a.y - b.y;
         return dx * dx + dy * dy < dist * dist;
       }
 
-      // --- メインループ ---
+
       app.ticker.add(() => {
         if (isGameOver) return;
         tick++;
 
-        // 自機の移動
+
         if (keys["ArrowLeft"] && player.x > 10) player.x -= 4;
         if (keys["ArrowRight"] && player.x < 470) player.x += 4;
         if (keys["ArrowUp"] && player.y > 10) player.y -= 4;
         if (keys["ArrowDown"] && player.y < 630) player.y += 4;
 
-        // 敵から弾を発射（円状）
+
         if (tick % 10 === 0) {
           const count = 24;
           for (let i = 0; i < count; i++) {
@@ -113,20 +110,17 @@
           }
         }
 
-        // 弾の更新
         for (let i = bullets.length - 1; i >= 0; i--) {
           const b = bullets[i];
           b.x += b.vx;
           b.y += b.vy;
 
-          // 画面外判定
           if (b.x < -10 || b.x > 490 || b.y < -10 || b.y > 650) {
             app.stage.removeChild(b);
             bullets.splice(i, 1);
             continue;
           }
 
-          // 当たり判定
           if (hit(b, player, 8)) {
             isGameOver = true;
             const text = new PIXI.Text("GAME OVER\nPress R to Restart", {
@@ -134,48 +128,44 @@
             });
             text.x = 100;
             text.y = 280;
-            text.name = "gameOverText"; // リスタート時に消すための名前
+            text.name = "gameOverText";
             app.stage.addChild(text);
             return;
           }
         }
 
-        // スコア
+
         if (tick % 10 === 0) {
           score++;
           scoreText.text = "Score: " + score;
         }
       });
 
-      // --- Rキーで再スタート ---
       window.addEventListener("keydown", (e) => {
         if (e.key === "r" || e.key === "R") {
           if (isGameOver) {
-            
-            // 6. GAME OVERテキストを削除 (v8対応の改善)
+
             const gameOverText = app.stage.getChildByName("gameOverText");
             if (gameOverText) {
               app.stage.removeChild(gameOverText);
             }
             
-            // 弾をすべて消す
+
             bullets.forEach(b => app.stage.removeChild(b));
             bullets.length = 0;
-            
-            // 各種リセット
+
             score = 0;
             scoreText.text = "Score: 0";
             player.x = 240;
             player.y = 560;
             isGameOver = false;
 
-            // 再度フォーカスを当てる
             app.canvas.focus();
           }
         }
       });
 
-    })(); // 非同期関数を即時実行
+    })(); 
   </script>
 </body>
 </html>
