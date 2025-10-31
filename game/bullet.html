@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>東方風 弾幕シューティング</title>
+  <script src="https://pixijs.download/release/pixi.min.js"></script>
+  <style>
+    body { margin: 0; text-align: center; background: #000; color: white; }
+    canvas { border: 2px solid #fff; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🌸 弾幕シューティング (PixiJS)</h1>
+  <p>矢印キーで移動</p>
+  <script>
+    const app = new PIXI.Application({ width: 480, height: 640, backgroundColor: 0x000000 });
+    document.body.appendChild(app.view);
+
+    // プレイヤー設定
+    const player = new PIXI.Graphics();
+    player.beginFill(0x00ffcc);
+    player.drawCircle(0, 0, 8);
+    player.endFill();
+    player.x = 240;
+    player.y = 560;
+    app.stage.addChild(player);
+
+    // 敵設定
+    const enemy = new PIXI.Graphics();
+    enemy.beginFill(0xff4444);
+    enemy.drawCircle(0, 0, 15);
+    enemy.endFill();
+    enemy.x = 240;
+    enemy.y = 120;
+    app.stage.addChild(enemy);
+
+    // スコアテキスト
+    let score = 0;
+    const scoreText = new PIXI.Text("Score: 0", { fill: "white", fontSize: 20 });
+    scoreText.x = 10;
+    scoreText.y = 10;
+    app.stage.addChild(scoreText);
+
+    // 弾リスト
+    const bullets = [];
+
+    // 弾を出す間隔
+    let tick = 0;
+
+    // キー入力
+    const keys = {};
+    window.addEventListener("keydown", (e) => keys[e.key] = true);
+    window.addEventListener("keyup", (e) => keys[e.key] = false);
+
+    // ゲーム状態
+    let isGameOver = false;
+
+    // 衝突判定（距離で判定）
+    function hit(a, b, dist) {
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      return dx * dx + dy * dy < dist * dist;
+    }
+
+    // メインループ
+    app.ticker.add(() => {
+      if (isGameOver) return;
+
+      tick++;
+
+      // プレイヤー操作
+      if (keys["ArrowLeft"] && player.x > 10) player.x -= 4;
+      if (keys["ArrowRight"] && player.x < 470) player.x += 4;
+      if (keys["ArrowUp"] && player.y > 10) player.y -= 4;
+      if (keys["ArrowDown"] && player.y < 630) player.y += 4;
+
+      // 弾生成（円状発射）
+      if (tick % 10 === 0) {
+        const bulletCount = 24;
+        for (let i = 0; i < bulletCount; i++) {
+          const angle = (i / bulletCount) * Math.PI * 2 + tick * 0.02;
+          const bullet = new PIXI.Graphics();
+          bullet.beginFill(0x44aaff);
+          bullet.drawCircle(0, 0, 4);
+          bullet.endFill();
+          bullet.x = enemy.x;
+          bullet.y = enemy.y;
+          bullet.vx = Math.cos(angle) * 2.5;
+          bullet.vy = Math.sin(angle) * 2.5;
+          app.stage.addChild(bullet);
+          bullets.push(bullet);
+        }
+      }
+
+      // 弾更新
+      for (let i = bullets.length - 1; i >= 0; i--) {
+        const b = bullets[i];
+        b.x += b.vx;
+        b.y += b.vy;
+
+        // 画面外削除
+        if (b.x < -10 || b.x > 490 || b.y < -10 || b.y > 650) {
+          app.stage.removeChild(b);
+          bullets.splice(i, 1);
+          continue;
+        }
+
+        // 衝突判定
+        if (hit(b, player, 8)) {
+          isGameOver = true;
+          const text = new PIXI.Text("GAME OVER\nPress R to Restart", {
+            fill: "red", fontSize: 32, align: "center"
+          });
+          text.x = 100;
+          text.y = 280;
+          app.stage.addChild(text);
+          return;
+        }
+      }
+
+      // スコア更新
+      if (tick % 10 === 0) {
+        score += 1;
+        scoreText.text = "Score: " + score;
+      }
+    });
+
+    // Rで再スタート
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "r" || e.key === "R") {
+        if (isGameOver) {
+          bullets.forEach(b => app.stage.removeChild(b));
+          bullets.length = 0;
+          score = 0;
+          scoreText.text = "Score: 0";
+          player.x = 240;
+          player.y = 560;
+          isGameOver = false;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
