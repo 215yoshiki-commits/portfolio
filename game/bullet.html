@@ -87,10 +87,10 @@
         tick++;
 
 
-        if (keys["ArrowLeft"] && player.x > 10) player.x -= 4;
-        if (keys["ArrowRight"] && player.x < 470) player.x += 4;
-        if (keys["ArrowUp"] && player.y > 10) player.y -= 4;
-        if (keys["ArrowDown"] && player.y < 630) player.y += 4;
+        if (keys["ArrowLeft"] && player.x > 10) player.x -= 2;
+        if (keys["ArrowRight"] && player.x < 470) player.x += 2;
+        if (keys["ArrowUp"] && player.y > 10) player.y -= 2;
+        if (keys["ArrowDown"] && player.y < 630) player.y += 2;
 
 
         if (tick % 10 === 0) {
